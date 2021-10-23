@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Name: {{ author.first_name }} {{ last_name }}</h1>
+
+  {% if author.date_of_birth %}
+  <p><strong>Date_of_birth:</strong> {{ author.date_of_birth }}</p>
+  {% endif %}
+  {% if author.date_of_death %}
+  <p><strong>Date_of_death:</strong> {{ author.date_of_death }}</p>
+  {% endif %}
+
+  {% if user.is_staff %}
+  <a href="{% url 'author_delete' author.pk %}">Delete author</a>
+  <a href="{% url 'author_update' author.pk %}">Update author</a>
+  {% endif %}
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Books</h4>
+    <hr>
+    {% for book in author.books.all %}
+    <p><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></p>
+    {% endfor %}
+    <hr>
+
+  </div>
+{% endblock %}
